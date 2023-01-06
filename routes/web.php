@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 //Import the app controller
 use App\Http\Controllers\SocialController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,3 +20,5 @@ use App\Http\Controllers\SocialController;
 Route::get('/', [SocialController::class, "homepage"]);
 
 Route::get('/post', [SocialController::class, "post"]);
+
+Route::post('/register', [UserController::class, "registerAccount"] );
