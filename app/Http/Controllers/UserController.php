@@ -4,14 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller {
     //Register new account
     public function registerAccount(Request $request) {
         $incomingFields = $request->validate([
-            'username' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'username' => ['required', 'min: 3', 'max: 20', Rule::unique('users', 'username')],
+            'email' => ['required', 'email', Rule::unique('users', 'email')],
+            'password' => ['required', 'min: 12', 'confirmed']
         ]);
 
         User::create($incomingFields);
