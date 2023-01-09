@@ -20,4 +20,17 @@ class UserController extends Controller {
         User::create($incomingFields);
         return '<h1>Hello from this shit</h1>';
     }
+    
+    public function login(Request $request) {
+        $incomingFields = $request->validate([
+            'loginusername' => 'required', 
+            'loginpassword' => 'required'
+        ]);
+
+        if(auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) {
+            return 'congrats';
+        } else {
+            return 'sorry';
+        }
+    }
 }
