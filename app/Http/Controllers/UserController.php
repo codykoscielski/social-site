@@ -28,9 +28,18 @@ class UserController extends Controller {
         ]);
 
         if(auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) {
+            $request->session()->regenerate();
             return 'congrats';
         } else {
             return 'sorry';
+        }
+    }
+
+    public function showCorrectHomepage() {
+        if(auth()->check()) {
+            return view('homepage-feed');
+        } else {
+            return view('homepage');
         }
     }
 }

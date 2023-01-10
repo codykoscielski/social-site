@@ -17,7 +17,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', [SocialController::class, "homepage"]);
+Route::get('/', [UserController::class, "showCorrectHomepage"]);
 
 Route::get('/post', [SocialController::class, "post"]);
 
