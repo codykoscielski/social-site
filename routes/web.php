@@ -24,3 +24,5 @@ Route::get('/post', [SocialController::class, "post"]);
 Route::post('/register', [UserController::class, "registerAccount"] );
 
 Route::post('/login', [UserController::class, "login"] );
+
+Route::post('/logout', [UserController::class, "logout"]);

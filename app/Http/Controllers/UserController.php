@@ -42,4 +42,9 @@ class UserController extends Controller {
             return view('homepage');
         }
     }
+
+    public function logout() {
+        auth()->logout();
+        return "you are now logged out";
+    }
 }
