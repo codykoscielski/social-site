@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class postController extends Controller
 {
     //
-    public function showCreateForm() {
+    public function showCreateForm() { 
         return view("create-post");
     }
 
@@ -22,8 +22,12 @@ class postController extends Controller
         $incomingFields['body'] = strip_tags($incomingFields['body']);
         $incomingFields['user_id'] = auth()->id();
 
-        Post::create($incomingFields);
+        $newPost = Post::create($incomingFields);
         
-        return redirect('/create-post')->with('Success', 'Post created!');
+        return redirect("/post/{$newPost->id}")->with('success', 'Post created!');
+    }
+
+    public function viewSinglePost(Post $post) {
+        return view('single-post', ['post' => $post]);
     }
 }
