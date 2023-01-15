@@ -19,13 +19,13 @@ use App\Http\Controllers\SocialController;
 */
 
 //User related routes
-Route::get('/', [UserController::class, "showCorrectHomepage"]);
-Route::get('/post', [SocialController::class, "post"]);
-Route::post('/register', [UserController::class, "registerAccount"] );
-Route::post('/login', [UserController::class, "login"] );
-Route::post('/logout', [UserController::class, "logout"]);
+Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login');
+Route::post('/register', [UserController::class, "registerAccount"])->middleware('guest');
+Route::post('/login', [UserController::class, "login"])->middleware('guest');
+Route::post('/logout', [UserController::class, "logout"])->middleware('mustBeLoggedIn');
 
 //Blog related routes
-Route::get('/create-post', [postController::class, "showCreateForm"]);
-Route::post('/create-post', [postController::class, "createPost"]);
+Route::get('/create-post', [postController::class, "showCreateForm"])->middleware('mustBeLoggedIn');
+Route::post('/create-post', [postController::class, "createPost"])->middleware('mustBeLoggedIn');
 Route::get('/post/{post}', [postController::class, "viewSinglePost"]);
+Route::get('/post', [SocialController::class, "post"]);
