@@ -27,7 +27,7 @@ class UserController extends Controller {
             'loginusername' => 'required', 
             'loginpassword' => 'required'
         ]);
-
+  
         if(auth()->attempt(['username' => $incomingFields['loginusername'], 'password' => $incomingFields['loginpassword']])) {
             $request->session()->regenerate();
             return redirect('/')->with('success', 'You have successfully logged in!');
@@ -47,5 +47,10 @@ class UserController extends Controller {
     public function logout() {
         auth()->logout();
         return redirect('/')->with('success', 'You are now logged out!');
+    }
+
+    public function userProfile(User $user) {
+
+        return view('profile-posts', ['username'=>$user->username]);
     }
 }
