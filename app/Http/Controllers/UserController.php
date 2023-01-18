@@ -50,7 +50,6 @@ class UserController extends Controller {
     }
 
     public function userProfile(User $user) {
-
-        return view('profile-posts', ['username'=>$user->username]);
+        return view('profile-posts', ['username'=>$user->username, 'posts'=>$user->posts()->latest()->get(), 'postCount'=>$user->posts()->count()]);
     }
 }
