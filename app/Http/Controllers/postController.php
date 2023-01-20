@@ -32,4 +32,13 @@ class postController extends Controller
         $post->body = strip_tags(Str::markdown($post->body), '<p><ul>');
         return view('single-post', ['post' => $post]);
     }
+
+    public function deletePost(Post $post) {
+        if(auth()->user()->cannot('delete', $post)) {
+            return 'You cannot delete this post';
+        }
+
+        $post->delete();
+        return redirect('/profile/' . auth()->user()->username)->with('success', 'Post deleted');
+    }
 }

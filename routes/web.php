@@ -29,6 +29,7 @@ Route::get('/create-post', [postController::class, "showCreateForm"])->middlewar
 Route::post('/create-post', [postController::class, "createPost"])->middleware('mustBeLoggedIn');
 Route::get('/post/{post}', [postController::class, "viewSinglePost"]);
 Route::get('/post', [SocialController::class, "post"]);
+Route::delete('/post/{post}', [postController::class, "deletePost"]);
 
 //Profile related routes
 Route::get('/profile/{user:username}', [UserController::class, 'userProfile']);
