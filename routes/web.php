@@ -30,6 +30,7 @@ Route::post('/create-post', [postController::class, "createPost"])->middleware('
 Route::get('/post/{post}', [postController::class, "viewSinglePost"]);
 Route::get('/post', [SocialController::class, "post"]);
 Route::delete('/post/{post}', [postController::class, "deletePost"])->middleware('can:delete,post');
-
+Route::get('/post/{post}/edit', [postController::class, 'showEditForm'])->middleware('can:update,post');
+Route::put('/post/{post}', [postController::class, 'updatePost'])->middleware('can:update,post');
 //Profile related routes
 Route::get('/profile/{user:username}', [UserController::class, 'userProfile']);
