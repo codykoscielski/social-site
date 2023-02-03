@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Gate;
 
 //Import the app controller
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\postController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SocialController;
@@ -18,6 +19,11 @@ use App\Http\Controllers\SocialController;
 |
 */
 
+//Admin related routes
+Route::get('/admins-only', function() {
+ return 'you cannot view this page';
+})->middleware('can:visitAdminPage');
+
 //User related routes
 Route::get('/', [UserController::class, "showCorrectHomepage"])->name('login');
 Route::post('/register', [UserController::class, "registerAccount"])->middleware('guest');
@@ -32,5 +38,6 @@ Route::get('/post', [SocialController::class, "post"]);
 Route::delete('/post/{post}', [postController::class, "deletePost"])->middleware('can:delete,post');
 Route::get('/post/{post}/edit', [postController::class, 'showEditForm'])->middleware('can:update,post');
 Route::put('/post/{post}', [postController::class, 'updatePost'])->middleware('can:update,post');
+
 //Profile related routes
 Route::get('/profile/{user:username}', [UserController::class, 'userProfile']);
